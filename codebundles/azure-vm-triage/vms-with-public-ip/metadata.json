@@ -1,0 +1,73 @@
+{
+  "policy": {
+    "name": "vms-with-public-ip",
+    "resource": "azure.vm",
+    "filters": [
+      {
+        "type": "network-interface",
+        "key": "properties.ipConfigurations[].properties.publicIPAddress.id",
+        "value": "not-null"
+      }
+    ]
+  },
+  "version": "0.9.43",
+  "execution": {
+    "id": "d5e30211-313a-445e-af68-284ac3d1d69c",
+    "start": 1739434703.8995357,
+    "end_time": 1739434708.7001548,
+    "duration": 4.800619125366211
+  },
+  "config": {
+    "region": "AzureCloud",
+    "regions": [],
+    "cache": "memory",
+    "profile": null,
+    "account_id": "af107490-868a-4adc-8f44-4e6261114090",
+    "assume_role": null,
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": "/home/runwhen/codecollection/codebundles/azure-vm-triage",
+    "cache_period": 0,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "az-vm.yaml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {},
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2025-02-13T08:18:28.699199",
+      "Value": 1,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2025-02-13T08:18:28.699231",
+      "Value": 4.798863649368286,
+      "Unit": "Seconds"
+    },
+    {
+      "MetricName": "ActionTime",
+      "Timestamp": "2025-02-13T08:18:28.700134",
+      "Value": 8.106231689453125e-06,
+      "Unit": "Seconds"
+    }
+  ]
+}

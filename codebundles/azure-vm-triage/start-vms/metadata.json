@@ -1,0 +1,66 @@
+{
+  "policy": {
+    "name": "start-vms",
+    "resource": "azure.vm"
+  },
+  "version": "0.9.43",
+  "execution": {
+    "id": "481113d4-ea2a-4f7b-8d68-5db33ff7b3b3",
+    "start": 1739434609.66011,
+    "end_time": 1739434611.854866,
+    "duration": 2.194756031036377
+  },
+  "config": {
+    "region": "AzureCloud",
+    "regions": [],
+    "cache": "memory",
+    "profile": null,
+    "account_id": "af107490-868a-4adc-8f44-4e6261114090",
+    "assume_role": null,
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": "/home/runwhen/codecollection/codebundles/azure-vm-triage",
+    "cache_period": 0,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "az-vm.yaml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {},
+  "metrics": [
+    {
+      "MetricName": "ResourceCount",
+      "Timestamp": "2025-02-13T08:16:51.853905",
+      "Value": 1,
+      "Unit": "Count"
+    },
+    {
+      "MetricName": "ResourceTime",
+      "Timestamp": "2025-02-13T08:16:51.853928",
+      "Value": 2.1931169033050537,
+      "Unit": "Seconds"
+    },
+    {
+      "MetricName": "ActionTime",
+      "Timestamp": "2025-02-13T08:16:51.854844",
+      "Value": 7.62939453125e-06,
+      "Unit": "Seconds"
+    }
+  ]
+}

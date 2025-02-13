@@ -1,0 +1,108 @@
+2025-02-13 07:07:07,355 - custodian.azure.session - ERROR - Failed to authenticate.
+Message: Authentication failed: Unable to get authority configuration for https://login.microsoftonline.com/514d5289-d51b-4245-b470-7923a263a04b. Authority would typically be in a format of https://login.microsoftonline.com/your_tenant or https://tenant_name.ciamlogin.com or https://tenant_name.b2clogin.com/tenant.onmicrosoft.com/policy.  Also please double check your tenant name or GUID is correct.
+2025-02-13 07:07:07,356 - custodian.output - ERROR - Error while executing policy
+Traceback (most recent call last):
+  File "/home/runwhen/.local/lib/python3.12/site-packages/msal/authority.py", line 79, in __init__
+    openid_config = tenant_discovery(
+                    ^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/msal/authority.py", line 216, in tenant_discovery
+    raise ValueError("OIDC Discovery failed on {}. HTTP status: {}, Error: {}".format(
+ValueError: OIDC Discovery failed on https://login.microsoftonline.com/514d5289-d51b-4245-b470-7923a263a04b/v2.0/.well-known/openid-configuration. HTTP status: 400, Error: {"error":"invalid_tenant","error_description":"AADSTS90002: Tenant '514d5289-d51b-4245-b470-7923a263a04b' not found. Check to make sure you have the correct tenant ID and are signing into the correct cloud. Check with your subscription administrator, this may happen if there are no active subscriptions for the tenant. Trace ID: 70bb4f49-5b0d-427f-87d9-efb6605f0e00 Correlation ID: 0b084a8a-4124-4465-9373-34fcde497e30 Timestamp: 2025-02-13 07:07:07Z","error_codes":[90002],"timestamp":"2025-02-13 07:07:07Z","trace_id":"70bb4f49-5b0d-427f-87d9-efb6605f0e00","correlation_id":"0b084a8a-4124-4465-9373-34fcde497e30","error_uri":"https://login.microsoftonline.com/error?code=90002"}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/identity/_internal/decorators.py", line 67, in wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/identity/_internal/client_credential_base.py", line 27, in _acquire_token_silently
+    app = self._get_app(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/identity/_internal/msal_credentials.py", line 108, in _get_app
+    client_applications_map[tenant_id] = app_class(
+                                         ^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/msal/application.py", line 608, in __init__
+    self.authority = Authority(
+                     ^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/msal/authority.py", line 95, in __init__
+    raise ValueError(error_message)
+ValueError: Unable to get authority configuration for https://login.microsoftonline.com/514d5289-d51b-4245-b470-7923a263a04b. Authority would typically be in a format of https://login.microsoftonline.com/your_tenant or https://tenant_name.ciamlogin.com or https://tenant_name.b2clogin.com/tenant.onmicrosoft.com/policy.  Also please double check your tenant name or GUID is correct.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runwhen/.local/lib/python3.12/site-packages/c7n_azure/session.py", line 128, in get_token
+    return self._credential.get_token(*scopes, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/identity/_internal/get_token_mixin.py", line 93, in get_token
+    token_info = self._get_token_base(*scopes, options=options, base_method_name="get_token", **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/identity/_internal/get_token_mixin.py", line 132, in _get_token_base
+    token = self._acquire_token_silently(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/identity/_internal/decorators.py", line 72, in wrapper
+    raise auth_error from ex
+azure.core.exceptions.ClientAuthenticationError: Authentication failed: Unable to get authority configuration for https://login.microsoftonline.com/514d5289-d51b-4245-b470-7923a263a04b. Authority would typically be in a format of https://login.microsoftonline.com/your_tenant or https://tenant_name.ciamlogin.com or https://tenant_name.b2clogin.com/tenant.onmicrosoft.com/policy.  Also please double check your tenant name or GUID is correct.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/c7n/policy.py", line 330, in run
+    resources = self.policy.resource_manager.resources()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/c7n_azure/query.py", line 284, in resources
+    resources = self.source.get_resources(query)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/c7n_azure/query.py", line 84, in get_resources
+    return self.query.filter(self.manager, query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/c7n_azure/query.py", line 51, in filter
+    return [r.serialize(True) for r in result]
+                                       ^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/paging.py", line 123, in __next__
+    return next(self._page_iterator)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/paging.py", line 75, in __next__
+    self._response = self._get_next(self.continuation_token)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/mgmt/compute/v2020_12_01/operations/_virtual_machines_operations.py", line 1155, in get_next
+    pipeline_response = self._client._pipeline.run(request, stream=False, **kwargs)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/_base.py", line 240, in run
+    return first_node.send(pipeline_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/_base.py", line 96, in send
+    response = self.next.send(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/_base.py", line 96, in send
+    response = self.next.send(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/_base.py", line 96, in send
+    response = self.next.send(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  [Previous line repeated 2 more times]
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/mgmt/core/policies/_base.py", line 95, in send
+    response = self.next.send(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/policies/_redirect.py", line 204, in send
+    response = self.next.send(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/policies/_retry.py", line 551, in send
+    response = self.next.send(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/policies/_authentication.py", line 157, in send
+    self.on_request(request)
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/policies/_authentication.py", line 132, in on_request
+    self._request_token(*self._scopes)
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/policies/_authentication.py", line 108, in _request_token
+    self._token = self._get_token(*scopes, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/azure/core/pipeline/policies/_authentication.py", line 99, in _get_token
+    return cast(TokenCredential, self._credential).get_token(*scopes, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runwhen/.local/lib/python3.12/site-packages/c7n_azure/session.py", line 131, in get_token
+    exit(1)
+  File "<frozen _sitebuiltins>", line 26, in __call__
+SystemExit: 1
+2025-02-13 07:08:31,115 - custodian.policy - INFO - policy:start-vms resource:azure.vm region:AzureCloud count:0 time:1.20
+2025-02-13 08:16:51,853 - custodian.policy - INFO - policy:start-vms resource:azure.vm region:AzureCloud count:1 time:2.19

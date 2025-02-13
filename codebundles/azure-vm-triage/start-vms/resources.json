@@ -1,0 +1,82 @@
+[
+  {
+    "id": "/subscriptions/af107490-868a-4adc-8f44-4e6261114090/resourceGroups/CLOUDCUSTODIAN/providers/Microsoft.Compute/virtualMachines/spot-vm",
+    "name": "spot-vm",
+    "type": "Microsoft.Compute/virtualMachines",
+    "location": "eastus",
+    "tags": {},
+    "properties": {
+      "hardwareProfile": {
+        "vmSize": "Standard_DS1_v2"
+      },
+      "storageProfile": {
+        "imageReference": {
+          "publisher": "Canonical",
+          "offer": "UbuntuServer",
+          "sku": "18.04-LTS",
+          "version": "latest",
+          "exactVersion": "18.04.202401161"
+        },
+        "osDisk": {
+          "osType": "Linux",
+          "name": "spot-vm_OsDisk_1_5f018ce6b47d4172856fc55761b297a2",
+          "caching": "ReadWrite",
+          "writeAcceleratorEnabled": false,
+          "createOption": "FromImage",
+          "diskSizeGB": 30,
+          "managedDisk": {
+            "id": "/subscriptions/af107490-868a-4adc-8f44-4e6261114090/resourceGroups/cloudcustodian/providers/Microsoft.Compute/disks/spot-vm_OsDisk_1_5f018ce6b47d4172856fc55761b297a2",
+            "storageAccountType": "Standard_LRS"
+          }
+        },
+        "dataDisks": []
+      },
+      "osProfile": {
+        "computerName": "spot-vm",
+        "adminUsername": "azureuser",
+        "linuxConfiguration": {
+          "disablePasswordAuthentication": true,
+          "ssh": {
+            "publicKeys": [
+              {
+                "path": "/home/azureuser/.ssh/authorized_keys",
+                "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDmTS6iRXDhc764HsRyHzE3yjq+NrZt1bS/MjN3DU0spr7aQfTDRQeNmaykUOfqxxhxBZ+0eGdZ9EorLo9Tj7FFl493NtJX8rUqnEseCKQ5AhDRXAHj2pRXZW4J1hhrGkj2SBcIVG5Ac1qEJQlWB9u0p0S+CUhHnSMT4boySBGgnpyWh2SmUtIueeaISGMyVMMcZzNpmchWXkXrt01+nJAcAvyYAOFjsjSqqnPecO86MK/hxSbK93GDS/Nm3+pDm4GthWArj+AacQpb/3ajBWrtW+hCXLB8or7sXuzU62x1K13dzIOzkrFGHVk/kyGiN0TqpGC5PWdz63F4voV8iu11\n"
+              }
+            ]
+          },
+          "provisionVMAgent": true,
+          "patchSettings": {
+            "patchMode": "ImageDefault"
+          }
+        },
+        "secrets": [],
+        "allowExtensionOperations": true,
+        "requireGuestProvisionSignal": true
+      },
+      "networkProfile": {
+        "networkInterfaces": [
+          {
+            "id": "/subscriptions/af107490-868a-4adc-8f44-4e6261114090/resourceGroups/cloudcustodian/providers/Microsoft.Network/networkInterfaces/spot-vm-nic",
+            "properties": {
+              "primary": true
+            }
+          }
+        ]
+      },
+      "diagnosticsProfile": {
+        "bootDiagnostics": {
+          "enabled": false
+        }
+      },
+      "priority": "Spot",
+      "evictionPolicy": "Deallocate",
+      "billingProfile": {
+        "maxPrice": -1.0
+      },
+      "provisioningState": "Succeeded",
+      "vmId": "ffba6682-7e5d-4694-942f-da3942b62a69",
+      "extensionsTimeBudget": "PT1H30M"
+    },
+    "resourceGroup": "CLOUDCUSTODIAN"
+  }
+]
