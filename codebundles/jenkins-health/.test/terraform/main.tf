@@ -162,6 +162,12 @@ resource "aws_instance" "jenkins_server" {
                 -auth "admin:$JENKINS_PASS" \
                 install-plugin workflow-aggregator -deploy
 
+              echo "[INFO] Installing git and docker plugin..."
+              java -jar jenkins-cli.jar \
+                -s "http://localhost:8080" \
+                -auth "admin:$JENKINS_PASS" \
+                install-plugin git docker-plugin docker-workflow -deploy
+
               echo "[INFO] Restarting Jenkins..."
               java -jar jenkins-cli.jar \
                 -s http://localhost:8080 \
@@ -210,6 +216,26 @@ resource "aws_instance" "jenkins_server" {
 
               # (Optional) Additional setup commands, e.g. Docker, etc.
               # ...
+              # Add Docker's official GPG key:
+              apt-get update
+              apt-get -y install ca-certificates curl
+              install -m 0755 -d /etc/apt/keyrings
+              curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+              chmod a+r /etc/apt/keyrings/docker.asc
+
+              # Add the repository to Apt sources:
+              echo \
+                "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+                $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+                tee /etc/apt/sources.list.d/docker.list > /dev/null
+              apt-get update
+              apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 
+
+              echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+              systemctl restart docker
+              groupadd docker
+              usermod -aG docker $USER
+              usermod -aG docker jenkins
               EOF
 
   tags = {
